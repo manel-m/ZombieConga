@@ -14,6 +14,11 @@
 		9948C29322C5D3CE00120B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9948C29222C5D3CE00120B08 /* Assets.xcassets */; };
 		9948C29622C5D3CE00120B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9948C29422C5D3CE00120B08 /* LaunchScreen.storyboard */; };
 		9948C29E22CAB86800120B08 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9948C29D22CAB86800120B08 /* MyUtils.swift */; };
+		9948C2A522CC3ECF00120B08 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A022CC3ECF00120B08 /* win.wav */; };
+		9948C2A622CC3ECF00120B08 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A122CC3ECF00120B08 /* lose.wav */; };
+		9948C2A722CC3ECF00120B08 /* hitCat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A222CC3ECF00120B08 /* hitCat.wav */; };
+		9948C2A822CC3ECF00120B08 /* hitCatLady.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A322CC3ECF00120B08 /* hitCatLady.wav */; };
+		9948C2A922CC3ECF00120B08 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		9948C29522C5D3CE00120B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9948C29722C5D3CE00120B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9948C29D22CAB86800120B08 /* MyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
+		9948C2A022CC3ECF00120B08 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		9948C2A122CC3ECF00120B08 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		9948C2A222CC3ECF00120B08 /* hitCat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCat.wav; sourceTree = "<group>"; };
+		9948C2A322CC3ECF00120B08 /* hitCatLady.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCatLady.wav; sourceTree = "<group>"; };
+		9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +68,7 @@
 		9948C28422C5D3C200120B08 /* ZombieConga */ = {
 			isa = PBXGroup;
 			children = (
+				9948C29F22CC3ECF00120B08 /* Sounds */,
 				9948C28522C5D3C200120B08 /* AppDelegate.swift */,
 				9948C28B22C5D3C200120B08 /* GameScene.swift */,
 				9948C28D22C5D3C200120B08 /* GameViewController.swift */,
@@ -68,6 +79,18 @@
 				9948C29D22CAB86800120B08 /* MyUtils.swift */,
 			);
 			path = ZombieConga;
+			sourceTree = "<group>";
+		};
+		9948C29F22CC3ECF00120B08 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				9948C2A022CC3ECF00120B08 /* win.wav */,
+				9948C2A122CC3ECF00120B08 /* lose.wav */,
+				9948C2A222CC3ECF00120B08 /* hitCat.wav */,
+				9948C2A322CC3ECF00120B08 /* hitCatLady.wav */,
+				9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,8 +150,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9948C2A622CC3ECF00120B08 /* lose.wav in Resources */,
 				9948C29122C5D3C200120B08 /* Main.storyboard in Resources */,
+				9948C2A922CC3ECF00120B08 /* backgroundMusic.mp3 in Resources */,
+				9948C2A522CC3ECF00120B08 /* win.wav in Resources */,
+				9948C2A722CC3ECF00120B08 /* hitCat.wav in Resources */,
 				9948C29322C5D3CE00120B08 /* Assets.xcassets in Resources */,
+				9948C2A822CC3ECF00120B08 /* hitCatLady.wav in Resources */,
 				9948C29622C5D3CE00120B08 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
