@@ -20,6 +20,13 @@ class GameScene: SKScene {
     let zombieRotateRadiansPerSec: CGFloat = 4.0 * π
     let zombieAnimation: SKAction
     
+    var invincible = false
+
+    let catCollisionSound: SKAction = SKAction.playSoundFileNamed(
+        "hitCat.wav", waitForCompletion: false)
+    let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed(
+        "hitCatLady.wav", waitForCompletion: false)
+    
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0/9.0 // 1
         let playableHeight = size.width / maxAspectRatio // 2
@@ -67,7 +74,6 @@ class GameScene: SKScene {
         
         zombie.anchorPoint = CGPoint(x: 0.5, y: 0.5) // default
         zombie.position = CGPoint(x: 400, y: 400)
-        //zombie.setScale(2)
         addChild(zombie)
         //zombie.run(SKAction.repeatForever(zombieAnimation))
 
@@ -248,13 +254,37 @@ class GameScene: SKScene {
     
     func zombieHit(cat: SKSpriteNode) {
         cat.removeFromParent()
-        run(SKAction.playSoundFileNamed("hitCat.wav",waitForCompletion: false))
+        run(catCollisionSound)
     }
     func zombieHit(enemy: SKSpriteNode) {
-        enemy.removeFromParent()
-        run(SKAction.playSoundFileNamed("hitCatLady.wav",waitForCompletion: false))
+        invincible = true
+
+        //enemy.removeFromParent()
+        let blinkTimes = 10.0
+        let duration = 3.0
+        let blinkAction = SKAction.customAction(
+        withDuration: duration) { node, elapsedTime in
+            let slice = duration / blinkTimes
+            let remainder = Double(elapsedTime).truncatingRemainder(
+                dividingBy: slice)
+            node.isHidden = remainder > slice / 2
+        }
+        
+        let setHidden = SKAction.run(){ [weak self] in
+            self?.zombie.isHidden = false
+            self?.invincible = false
+        }
+//        let finishAction = SKAction.customAction(
+//        withDuration: 0) { node, elapsedTime in
+//            self.zombie.isHidden = false
+//            self.invincible = false
+//        }
+        zombie.run(SKAction.sequence([blinkAction, setHidden]))
+        run(enemyCollisionSound)
     }
+    
     func checkCollisions() {
+        
         var hitCats: [SKSpriteNode] = []
         enumerateChildNodes(withName: "cat") { node, _ in
             let cat = node as! SKSpriteNode
@@ -265,17 +295,21 @@ class GameScene: SKScene {
         for cat in hitCats {
             zombieHit(cat: cat)
         }
-        var hitEnemies: [SKSpriteNode] = []
-        enumerateChildNodes(withName: "enemy") { node, _ in
-            let enemy = node as! SKSpriteNode
-            if node.frame.insetBy(dx: 20, dy: 20).intersects(
-                self.zombie.frame) {
-                hitEnemies.append(enemy)
+
+        if invincible == false {
+            var hitEnemies: [SKSpriteNode] = []
+            enumerateChildNodes(withName: "enemy") { node, _ in
+                let enemy = node as! SKSpriteNode
+                if node.frame.insetBy(dx: 20, dy: 20).intersects(
+                    self.zombie.frame) {
+                    hitEnemies.append(enemy)
+                }
+            }
+            for enemy in hitEnemies {
+                zombieHit(enemy: enemy)
             }
         }
-        for enemy in hitEnemies {
-            zombieHit(enemy: enemy)
-        }
+       
     }
     
    
