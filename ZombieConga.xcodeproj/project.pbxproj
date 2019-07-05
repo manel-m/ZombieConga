@@ -20,6 +20,7 @@
 		9948C2A822CC3ECF00120B08 /* hitCatLady.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A322CC3ECF00120B08 /* hitCatLady.wav */; };
 		9948C2A922CC3ECF00120B08 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */; };
 		9948C2AB22CF100600120B08 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9948C2AA22CF100600120B08 /* GameOverScene.swift */; };
+		9948C2AD22CF1AB500120B08 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9948C2AC22CF1AB500120B08 /* MainMenuScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		9948C2A322CC3ECF00120B08 /* hitCatLady.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCatLady.wav; sourceTree = "<group>"; };
 		9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 		9948C2AA22CF100600120B08 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		9948C2AC22CF1AB500120B08 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				9948C29F22CC3ECF00120B08 /* Sounds */,
 				9948C28522C5D3C200120B08 /* AppDelegate.swift */,
+				9948C2AC22CF1AB500120B08 /* MainMenuScene.swift */,
 				9948C28B22C5D3C200120B08 /* GameScene.swift */,
 				9948C2AA22CF100600120B08 /* GameOverScene.swift */,
 				9948C28D22C5D3C200120B08 /* GameViewController.swift */,
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9948C2AD22CF1AB500120B08 /* MainMenuScene.swift in Sources */,
 				9948C2AB22CF100600120B08 /* GameOverScene.swift in Sources */,
 				9948C28C22C5D3C200120B08 /* GameScene.swift in Sources */,
 				9948C28E22C5D3C200120B08 /* GameViewController.swift in Sources */,
