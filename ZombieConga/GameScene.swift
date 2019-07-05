@@ -13,6 +13,7 @@ class GameScene: SKScene {
     var dt: TimeInterval = 0
     // the zombie should move 480 points in 1 second
     let zombieMovePointsPerSec: CGFloat = 480.0
+    let catMovePointsPerSec: CGFloat = 480.0
     // 2D vector
     var velocity = CGPoint.zero
     let playableRect: CGRect
@@ -74,6 +75,7 @@ class GameScene: SKScene {
         
         zombie.anchorPoint = CGPoint(x: 0.5, y: 0.5) // default
         zombie.position = CGPoint(x: 400, y: 400)
+        zombie.zPosition = 100
         addChild(zombie)
         //zombie.run(SKAction.repeatForever(zombieAnimation))
 
@@ -119,6 +121,7 @@ class GameScene: SKScene {
             }
         }
         boundsCheckZombie()
+        moveTrain()
         //checkCollisions()
     }
     override func didEvaluateActions() {
@@ -149,7 +152,7 @@ class GameScene: SKScene {
         // 1
         //let amountToMove = CGPoint(x: velocity.x * CGFloat(dt),y: velocity.y * CGFloat(dt))
         let amountToMove = velocity * CGFloat(dt)
-        print("Amount to move: \(amountToMove)")
+        //print("Amount to move: \(amountToMove)")
         // 2
         //sprite.position = CGPoint(x: sprite.position.x + amountToMove.x, y: sprite.position.y + amountToMove.y)
         sprite.position += amountToMove
@@ -253,8 +256,31 @@ class GameScene: SKScene {
     }
     
     func zombieHit(cat: SKSpriteNode) {
-        cat.removeFromParent()
+        //cat.removeFromParent()
+        cat.name = "train"
+        cat.removeAllActions()
+        cat.setScale(1.0)
+        cat.zRotation = 0
+        let colorAction = SKAction.colorize(with: SKColor.green, colorBlendFactor: 1.0, duration: 0.2)
+        cat.run(colorAction)
+        
+        
         run(catCollisionSound)
+    }
+    func moveTrain() {
+        var targetPosition = zombie.position
+        enumerateChildNodes(withName: "train") { node, stop in
+            if !node.hasActions() {
+                let actionDuration = 0.3
+                let offset = targetPosition - node.position
+                let direction = offset.normalized()
+                let amountToMovePerSec = direction * self.catMovePointsPerSec
+                let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
+                let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
+                    node.run(moveAction)
+            }
+            targetPosition = node.position
+        }
     }
     func zombieHit(enemy: SKSpriteNode) {
         invincible = true
