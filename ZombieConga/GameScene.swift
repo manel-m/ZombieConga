@@ -22,6 +22,8 @@ class GameScene: SKScene {
     let zombieAnimation: SKAction
     
     var invincible = false
+    var lives = 5
+    var gameOver = false
 
     let catCollisionSound: SKAction = SKAction.playSoundFileNamed(
         "hitCat.wav", waitForCompletion: false)
@@ -79,16 +81,18 @@ class GameScene: SKScene {
         addChild(zombie)
         //zombie.run(SKAction.repeatForever(zombieAnimation))
 
-        debugDrawPlayableArea()
+        //debugDrawPlayableArea()
         
         run(SKAction.repeatForever(
             SKAction.sequence([SKAction.run() { [weak self] in
                 self?.spawnEnemy()
-                }, SKAction.wait(forDuration: 2.0)])))
+                }, SKAction.wait(forDuration: 5.0)])))
         run(SKAction.repeatForever(
             SKAction.sequence([SKAction.run() { [weak self] in
                 self?.spawnCat()
                 },SKAction.wait(forDuration: 1.0)])))
+        
+        playBackgroundMusic(filename: "backgroundMusic.mp3")
         // Gesture recognizer example
         //    // Uncomment this and the handleTap method, and comment the touchesBegan/Moved methods to test
 //        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
@@ -122,6 +126,18 @@ class GameScene: SKScene {
         }
         boundsCheckZombie()
         moveTrain()
+        if lives <= 0 && !gameOver {
+            gameOver = true
+            print("You lose!")
+            backgroundMusicPlayer.stop()
+            // 1
+            let gameOverScene = GameOverScene(size: size, won: false)
+            gameOverScene.scaleMode = scaleMode
+            // 2
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            // 3
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
         //checkCollisions()
     }
     override func didEvaluateActions() {
@@ -196,7 +212,7 @@ class GameScene: SKScene {
                 max: playableRect.maxY - enemy.size.height/2))
         addChild(enemy)
         let actionMove =
-            SKAction.moveTo(x: -enemy.size.width/2, duration: 2.0)
+            SKAction.moveTo(x: -enemy.size.width/2, duration: 5.0)
         let actionRemove = SKAction.removeFromParent()
         enemy.run(SKAction.sequence([actionMove, actionRemove]))
     }
@@ -268,8 +284,11 @@ class GameScene: SKScene {
         run(catCollisionSound)
     }
     func moveTrain() {
+        var trainCount = 0
         var targetPosition = zombie.position
         enumerateChildNodes(withName: "train") { node, stop in
+            trainCount += 1
+
             if !node.hasActions() {
                 let actionDuration = 0.3
                 let offset = targetPosition - node.position
@@ -281,10 +300,48 @@ class GameScene: SKScene {
             }
             targetPosition = node.position
         }
+        if trainCount >= 15 && !gameOver {
+            gameOver = true
+            print("You win!")
+            backgroundMusicPlayer.stop()
+            // 1
+            let gameOverScene = GameOverScene(size: size, won : true)
+            gameOverScene.scaleMode = scaleMode
+            // 2
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            // 3
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
+        
     }
+    func loseCats() {
+        // 1
+        var loseCount = 0
+        enumerateChildNodes(withName: "train") { node, stop in
+            // 2
+            var randomSpot = node.position
+            randomSpot.x += CGFloat.random(min: -100, max: 100)
+            randomSpot.y += CGFloat.random(min: -100, max: 100)
+            // 3
+            node.name = ""
+            node.run(
+                SKAction.sequence([
+                    SKAction.group([
+                        SKAction.rotate(byAngle: π*4, duration: 1.0),
+                        SKAction.move(to: randomSpot, duration: 1.0),
+                        SKAction.scale(to: 0, duration: 1.0)
+                        ]),SKAction.removeFromParent()
+                    ]))
+            // 4
+            loseCount += 1
+            if loseCount >= 2 {
+                stop[0] = true
+            }
+        } }
+    
+    
     func zombieHit(enemy: SKSpriteNode) {
         invincible = true
-
         //enemy.removeFromParent()
         let blinkTimes = 10.0
         let duration = 3.0
@@ -294,6 +351,7 @@ class GameScene: SKScene {
             let remainder = Double(elapsedTime).truncatingRemainder(
                 dividingBy: slice)
             node.isHidden = remainder > slice / 2
+            
         }
         
         let setHidden = SKAction.run(){ [weak self] in
@@ -307,6 +365,8 @@ class GameScene: SKScene {
 //        }
         zombie.run(SKAction.sequence([blinkAction, setHidden]))
         run(enemyCollisionSound)
+        loseCats()
+        lives -= 1
     }
     
     func checkCollisions() {
