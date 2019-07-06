@@ -149,17 +149,17 @@ class GameScene: SKScene {
             dt = 0 }
         lastUpdateTime = currentTime
         
-        if let lastTouchLocation = lastTouchLocation {
-            let diff = lastTouchLocation - zombie.position
-            if  diff.length() <= zombieMovePointsPerSec * CGFloat(dt){
-                zombie.position = lastTouchLocation
-                velocity = CGPoint.zero
-                stopZombieAnimation()
-            } else {
+//        if let lastTouchLocation = lastTouchLocation {
+//            let diff = lastTouchLocation - zombie.position
+//            if  diff.length() <= zombieMovePointsPerSec * CGFloat(dt){
+//                zombie.position = lastTouchLocation
+//                velocity = CGPoint.zero
+//                stopZombieAnimation()
+//            } else {
                 move(sprite: zombie,velocity: velocity)
                 rotate(sprite: zombie, direction: velocity,rotateRadiansPerSec: zombieRotateRadiansPerSec)
-            }
-        }
+//            }
+//        }
         boundsCheckZombie()
         moveTrain()
         moveCamera()
@@ -182,11 +182,12 @@ class GameScene: SKScene {
         checkCollisions()
     }
     func boundsCheckZombie() {
-        let bottomLeft = CGPoint(x: 0, y: playableRect.minY)
-        let topRight = CGPoint(x: size.width, y: playableRect.maxY)
+        let bottomLeft = CGPoint(x: cameraRect.minX, y: cameraRect.minY)
+        let topRight = CGPoint(x: cameraRect.maxX, y: cameraRect.maxY)
+        
         if zombie.position.x <= bottomLeft.x {
             zombie.position.x = bottomLeft.x
-            velocity.x = -velocity.x
+            velocity.x = abs(velocity.x)
         }
         if zombie.position.x >= topRight.x {
             zombie.position.x = topRight.x
@@ -244,13 +245,15 @@ class GameScene: SKScene {
         let enemy = SKSpriteNode(imageNamed: "enemy")
         enemy.name = "enemy"
         enemy.position = CGPoint(
-            x: size.width + enemy.size.width/2,
+            x: cameraRect.maxX + enemy.size.width/2,
             y: CGFloat.random(
-                min: playableRect.minY + enemy.size.height/2,
-                max: playableRect.maxY - enemy.size.height/2))
+                min: cameraRect.minY + enemy.size.height/2,
+                max: cameraRect.maxY - enemy.size.height/2))
+        enemy.zPosition = 50
         addChild(enemy)
         let actionMove =
-            SKAction.moveTo(x: -enemy.size.width/2, duration: 5.0)
+            SKAction.moveTo(x:cameraRect.minX - enemy.size.width/2, duration:2.0)
+        //SKAction.moveBy(x: -(size.width + enemy.size.width), y: 0, duration: 2.0)
         let actionRemove = SKAction.removeFromParent()
         enemy.run(SKAction.sequence([actionMove, actionRemove]))
     }
@@ -259,10 +262,11 @@ class GameScene: SKScene {
         let cat = SKSpriteNode(imageNamed: "cat")
         cat.name = "cat"
         cat.position = CGPoint(
-            x: CGFloat.random(min: playableRect.minX,
-                              max: playableRect.maxX),
-            y: CGFloat.random(min: playableRect.minY,
-                              max: playableRect.maxY))
+            x: CGFloat.random(min: cameraRect.minX,
+                              max: cameraRect.maxX),
+            y: CGFloat.random(min: cameraRect.minY,
+                              max: cameraRect.maxY))
+        cat.zPosition = 50
         cat.setScale(0)
         addChild(cat)
         // 2
