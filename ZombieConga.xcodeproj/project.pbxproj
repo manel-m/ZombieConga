@@ -21,6 +21,7 @@
 		9948C2A922CC3ECF00120B08 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */; };
 		9948C2AB22CF100600120B08 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9948C2AA22CF100600120B08 /* GameOverScene.swift */; };
 		9948C2AD22CF1AB500120B08 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9948C2AC22CF1AB500120B08 /* MainMenuScene.swift */; };
+		9948C2D322D2DD9B00120B08 /* GLIMSTIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 9948C2D222D2DD9B00120B08 /* GLIMSTIC.TTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		9948C2A422CC3ECF00120B08 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 		9948C2AA22CF100600120B08 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		9948C2AC22CF1AB500120B08 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		9948C2D222D2DD9B00120B08 /* GLIMSTIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = GLIMSTIC.TTF; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		9948C28422C5D3C200120B08 /* ZombieConga */ = {
 			isa = PBXGroup;
 			children = (
+				9948C2D222D2DD9B00120B08 /* GLIMSTIC.TTF */,
 				9948C29F22CC3ECF00120B08 /* Sounds */,
 				9948C28522C5D3C200120B08 /* AppDelegate.swift */,
 				9948C2AC22CF1AB500120B08 /* MainMenuScene.swift */,
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9948C2D322D2DD9B00120B08 /* GLIMSTIC.TTF in Resources */,
 				9948C2A622CC3ECF00120B08 /* lose.wav in Resources */,
 				9948C29122C5D3C200120B08 /* Main.storyboard in Resources */,
 				9948C2A922CC3ECF00120B08 /* backgroundMusic.mp3 in Resources */,
